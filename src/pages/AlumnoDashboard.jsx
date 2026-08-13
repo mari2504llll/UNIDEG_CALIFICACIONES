@@ -3,6 +3,7 @@ import { supabase } from '../lib/supabaseClient'
 import { useAuth } from '../context/AuthContext'
 import { exportAlumnoPDF } from '../utils/exportPDF'
 import { exportAlumnoExcel } from '../utils/exportExcel'
+import { ParcialesLineChart, AveragesBarChart } from '../components/charts'
 
 export default function AlumnoDashboard() {
   const { profile, logout } = useAuth()
@@ -79,6 +80,17 @@ export default function AlumnoDashboard() {
           ))}
         </tbody>
       </table>
+
+      <div className="charts-grid">
+        <div className="chart-card">
+          <h3>Mi evolución por parcial</h3>
+          <ParcialesLineChart calificaciones={calificaciones} />
+        </div>
+        <div className="chart-card">
+          <h3>Mi promedio por materia</h3>
+          <AveragesBarChart calificaciones={calificaciones} groupBy={(c) => c.materias?.nombre} label="Calificación" />
+        </div>
+      </div>
     </div>
   )
 }
