@@ -110,3 +110,39 @@ body {
 .grade-table button:disabled { background: #c6cdd6; cursor: not-allowed; }
 .grade-table.read-only td { color: var(--ink); }
 .muted { color: var(--muted); font-size: 0.8rem; }
+
+/* ---------- Stat cards & charts (estilo dashboard) ---------- */
+.stat-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.stat-card {
+  background: var(--navy-deep);
+  color: white;
+  border-radius: var(--radius);
+  padding: 1rem 1.2rem;
+  box-shadow: 0 4px 14px rgba(11, 31, 54, 0.25);
+}
+.stat-value { font-size: 1.8rem; font-weight: 700; color: var(--gold); }
+.stat-label { font-size: 0.8rem; color: #c8d2de; margin-top: 0.2rem; }
+
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+.chart-card {
+  background: white;
+  border-radius: var(--radius);
+  padding: 1rem 1.2rem;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+}
+.chart-card h3 {
+  margin: 0 0 0.5rem;
+  font-size: 0.95rem;
+  color: var(--navy-deep);
+}
+.chart-empty { color: var(--muted); font-size: 0.85rem; text-align: center; padding: 2rem 0; }
