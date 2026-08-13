@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider, useAuth } from './context/AuthContext'
 import ProtectedRoute from './components/ProtectedRoute'
 import Login from './pages/Login'
+import Signup from './pages/Signup'
 import DirectorDashboard from './pages/DirectorDashboard'
 import MaestroDashboard from './pages/MaestroDashboard'
 import AlumnoDashboard from './pages/AlumnoDashboard'
@@ -21,6 +22,7 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
 
           <Route path="/" element={
             <ProtectedRoute><Home /></ProtectedRoute>
