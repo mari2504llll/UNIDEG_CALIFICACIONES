@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
 import { useAuth } from '../context/AuthContext'
+import { StatCards, PassFailDonut, AveragesBarChart, ParcialesLineChart } from '../components/charts'
 
 export default function DirectorDashboard() {
   const { profile, logout } = useAuth()
@@ -54,6 +55,30 @@ export default function DirectorDashboard() {
         fecha de la última actualización. La edición sigue siendo responsabilidad
         del maestro de cada materia; el director tiene solo lectura y supervisión.
       </p>
+
+      <StatCards
+        stats={[
+          { label: 'Alumnos', value: new Set(calificaciones.map((c) => c.alumnos?.matricula)).size || '—' },
+          { label: 'Materias', value: materias.length },
+          { label: 'Maestros', value: maestros.length },
+          { label: 'Calificaciones', value: calificaciones.length },
+        ]}
+      />
+
+      <div className="charts-grid">
+        <div className="chart-card">
+          <h3>Aprobados vs Reprobados</h3>
+          <PassFailDonut calificaciones={calificaciones} />
+        </div>
+        <div className="chart-card">
+          <h3>Promedio por materia</h3>
+          <AveragesBarChart calificaciones={calificaciones} groupBy={(c) => c.materias?.nombre} />
+        </div>
+        <div className="chart-card">
+          <h3>Evolución por parcial</h3>
+          <ParcialesLineChart calificaciones={calificaciones} />
+        </div>
+      </div>
 
       <div className="filtros">
         <select value={materiaFiltro} onChange={(e) => setMateriaFiltro(e.target.value)}>
