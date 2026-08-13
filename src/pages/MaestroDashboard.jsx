@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from 'react'
 import { supabase } from '../lib/supabaseClient'
 import { useAuth } from '../context/AuthContext'
 import GradeTable from '../components/GradeTable'
+import { StatCards, PassFailDonut, AveragesBarChart, ParcialesLineChart } from '../components/charts'
 
 export default function MaestroDashboard() {
   const { profile, logout } = useAuth()
@@ -66,6 +67,34 @@ export default function MaestroDashboard() {
           </div>
 
           <GradeTable calificaciones={calificaciones} onChange={loadCalificaciones} />
+
+          <StatCards
+            stats={[
+              { label: 'Alumnos', value: calificaciones.length },
+              {
+                label: 'Promedio grupo',
+                value: (() => {
+                  const finales = calificaciones.map((c) => Number(c.final)).filter((n) => !isNaN(n))
+                  return finales.length ? (finales.reduce((a, b) => a + b, 0) / finales.length).toFixed(1) : '—'
+                })(),
+              },
+            ]}
+          />
+
+          <div className="charts-grid">
+            <div className="chart-card">
+              <h3>Aprobados vs Reprobados</h3>
+              <PassFailDonut calificaciones={calificaciones} />
+            </div>
+            <div className="chart-card">
+              <h3>Evolución por parcial</h3>
+              <ParcialesLineChart calificaciones={calificaciones} />
+            </div>
+            <div className="chart-card">
+              <h3>Promedio por alumno</h3>
+              <AveragesBarChart calificaciones={calificaciones} groupBy={(c) => c.alumnos?.nombre} />
+            </div>
+          </div>
         </>
       )}
     </div>
