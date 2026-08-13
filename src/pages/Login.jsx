@@ -50,6 +50,10 @@ export default function Login() {
         <button type="submit" disabled={loading}>
           {loading ? 'Entrando...' : 'Entrar'}
         </button>
+
+        <p className="subtitle" style={{ marginTop: '1rem' }}>
+          ¿No tienes cuenta? <a href="/signup">Crea una aquí</a>
+        </p>
       </form>
     </div>
   )
